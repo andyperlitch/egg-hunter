@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import {Board} from './Board.js'
+import {Instructions} from './Instructions.js'
+
 function App() {
+
+  const game = {
+    columns: 10,
+    rows: 4,
+    charPoint: [0, 0],
+    eggPoints: [
+      [1,1], [4,5], [1,4], [8,10]
+    ],
+    rockPoints: [
+      [1,2], [4,4], [6,3]
+    ] 
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Board game={game} />
+      <Instructions />
     </div>
   );
 }

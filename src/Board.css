@@ -1,0 +1,21 @@
+.Board {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  width: 60%;
+  position: relative;
+}
+
+.tile {
+  stroke: rgb(187, 204, 216);
+  fill: rgb(225, 242, 255);
+}
+
+.tileSquare {
+  fill: rgb(206, 219, 184);
+}
+
+.tileEgg {
+  stroke: rgb(240, 179, 179);
+  stroke-width: 2px;
+}
