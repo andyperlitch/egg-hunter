@@ -12,7 +12,6 @@ const directions = {
 export const Instructions = () => {
   const { game: { instructions }, dispatch } = useContext(GameContext)
   return (<div className="Instructions">
-    {/* <h2 className="InstructionsTitle">Instructions</h2> */}
     <button className="RunButton" onClick={() => dispatch({ type: 'run', payload: 0 })}>Run!</button>
     <AddInstruction />
     {instructions.map((dir, i) => <Instruction dir={dir} i={i} key={i} />)}
@@ -22,7 +21,7 @@ export const Instructions = () => {
 const Instruction = ({ dir, i }) => {
   const { dispatch } = useContext(GameContext)
   return (<div className="Instruction">
-    <span className="InstructionDir">{directions[dir]}</span>
+  <span className="InstructionDir">{i + 1}.{' '}{' '}{' '}{directions[dir]}</span>
     <button
       className="InstructionDelete"
       onClick={() => dispatch({ type: 'rmInstruction', payload: i })}
