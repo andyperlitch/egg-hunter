@@ -1,3 +1,10 @@
+# Egg Hunter
+
+![image](https://user-images.githubusercontent.com/36858998/73055218-1be4d780-3e41-11ea-9840-5e004fd7c1a4.png)
+
+This is a project I threw together to demonstrate coding to kindergarteners.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
