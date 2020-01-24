@@ -12,10 +12,9 @@ const defaultGame = {
   charPoint: [0, 0],
   columns: 6,
   rows: 5,
-  hasEgg: getLookup([
-    [1,1], [3,3], [1,4], [4,5]
-  ]),
-  hasRock: getLookup([
+  eggs: getLookup([[1,1], [3,3], [1,4], [4,5]]),
+  eggsFound: getLookup([]),
+  rocks: getLookup([
     [0,1], [1,3], [2,3], [4,4]
   ]),
   instructions: [],
@@ -31,8 +30,19 @@ function getLookup (points) {
     }
     return acc
   }, {})
-  return (row, col) => {
-    return lookup[row] && lookup[row][col]
+  return {
+    values: points, 
+    has: (row, col) => {
+      return lookup[row] && lookup[row][col] === true
+    },
+    add: (row, col) => {
+      if (!lookup[row]) {
+        lookup[row] = { [col]: true }
+      } else {
+        lookup[row][col] = true
+      }
+      points.push([row, col])
+    }
   }
 }
 
@@ -87,7 +97,7 @@ function reducer(state, action) {
         return state
       }
       // check validity of spot
-      if (state.hasRock(...state.charPoint)) {
+      if (state.rocks.has(...state.charPoint)) {
         toast.error('You hit a rock!', {
           position: "bottom-center",
           autoClose: 5000,
@@ -100,6 +110,7 @@ function reducer(state, action) {
           ...state,
           running: -1,
           charPoint: [...state.startPoint],
+          eggsFound: getLookup([]),
         }
       }
 
@@ -119,7 +130,13 @@ function reducer(state, action) {
           running: -1,
           // error: 'You went out of bounds!',
           charPoint: [...state.startPoint],
+          eggsFound: getLookup([]),
         }
+      }
+
+      // check for egg
+      if (state.eggs.has(...state.charPoint) && !state.eggsFound.has(...state.charPoint)) {
+        state.eggsFound.add(...state.charPoint)
       }
 
       // check if remaining instructions
@@ -131,10 +148,39 @@ function reducer(state, action) {
           charPoint: moveCharPoint(state.charPoint, instructions[running + 1])
         }
       } else {
+        const { eggs, eggsFound } = state
+        if (eggs.values.length > eggsFound.values.length) {
+          toast.info(`You found ${eggsFound.values.length} out of ${eggs.values.length} eggs!`, {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        } else {
+          toast.success(`You got all the eggs!!!`, {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        }
+        // toast.error('You went out of bounds!', {
+        //   position: "bottom-center",
+        //   autoClose: 5000,
+        //   hideProgressBar: true,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        // });
         return {
           ...state,
           running: -1,
           charPoint: [...state.startPoint],
+          eggsFound: getLookup([]),
         }
       }
     }

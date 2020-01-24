@@ -2,7 +2,7 @@ import React, { useRef, useEffect, Fragment as F, useContext } from "react"
 import * as d3 from 'd3'
 import ContainerDimensions from 'react-container-dimensions'
 import './Board.css'
-import egg from './egg.png'
+import eggImg from './egg.png'
 import rock from './rock.png'
 import charImg from './bunny.png'
 import { GameContext } from "./GameContext"
@@ -30,6 +30,8 @@ const Tiles = ({  width }) => {
   const cellSize = width / game.columns
   const cellPadding = 6
   const tiles = getTiles(game, cellSize)
+  const eggs = getEggs(game, cellSize)
+  console.log(`eggs.length`, eggs.length)
   const height = cellSize * game.rows
 
   useEffect(() => {
@@ -55,18 +57,6 @@ const Tiles = ({  width }) => {
       .attr('width', cellSize - cellPadding)
       .attr('height', cellSize - cellPadding)
 
-    // EGGS
-    newTile
-      .filter((t) => t.egg)
-      .append('ellipse')
-      .classed('tileEgg', true)
-      .attr('cx', cellSize / 2)
-      .attr('cy', cellSize / 2)
-      .attr('rx', cellSize * 0.25)
-      .attr('ry', cellSize * 0.3)
-      .attr('fill', 'url(#eggBg)')
-      .attr('transform', `translate(${cellSize * 0.3}, -${cellSize * 0.18}) rotate(30) `)
-
     // ROCKS
     newTile
       .filter((t) => t.rock)
@@ -81,7 +71,6 @@ const Tiles = ({  width }) => {
     tile = newTile.merge(tile)
 
     // CHARACTER
-    console.log(`charDatum`, charDatum)
     let char = svg.selectAll('image.character')
       .data([charDatum], () => 1)
     
@@ -97,22 +86,34 @@ const Tiles = ({  width }) => {
     
     char
       .transition()
-      .duration(1000)
+      .duration(700)
       .attr('x', (d) => d.col * cellSize + cellPadding)
       .attr('y', (d) => d.row * cellSize + cellPadding)
       .on('end', () => dispatch({ type: 'moved' }))
+    
+    // EGGS
+    let egg = svg.selectAll('image.egg')
+      .data(eggs, (d) => `${d.row}.${d.col}`)
+
+    egg.exit().remove()
+
+    
+    egg = egg.enter()
+      .append('image')
+      .classed('egg', true)
+      .attr('href', eggImg)
+      .attr('width', cellSize - cellPadding * 8)
+      .attr('height', cellSize - cellPadding * 8)
+      .attr('x', (d) => d.col * cellSize + cellPadding * 4)
+      .attr('y', (d) => d.row * cellSize + cellPadding * 4)
+      .merge(egg)
+    
   })
 
-  return (<svg className="BoardSvg" ref={svgRef} width={width} height={height}>
-    <defs>
-      <pattern id="eggBg" x="0" y="0" height="100" width="100">
-        <image x="-50" y="-50" xlinkHref={egg} height="150" width="150" />
-      </pattern>
-    </defs>
-  </svg>)
+  return (<svg className="BoardSvg" ref={svgRef} width={width} height={height}></svg>)
 }
 
-const getTiles = ({ rows , columns, hasEgg, hasRock }, cellSize) => {
+const getTiles = ({ rows , columns, rocks }, cellSize) => {
   const tiles = []
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
@@ -121,13 +122,21 @@ const getTiles = ({ rows , columns, hasEgg, hasRock }, cellSize) => {
         col: j,
         x: j * cellSize,
         y: i * cellSize,
-        egg: hasEgg(i, j),
-        rock: hasRock(i, j),
+        rock: rocks.has(i, j),
         cellSize,
       })
     }    
   }
-  console.log(`tiles`, tiles)
   return tiles
 }
 
+const getEggs = ({ eggs, eggsFound }, cellSize) => {
+  return eggs.values
+    .filter((egg) => !eggsFound.has(...egg))
+    .map(([row, col]) => ({
+      row,
+      col,
+      x: col * cellSize,
+      y: row * cellSize,
+    }))
+}
