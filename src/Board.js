@@ -6,11 +6,13 @@ import egg from './egg.png'
 
 export const Board = ({ game }) => {
   return (
-    <ContainerDimensions>
-      {({ width }) => (<F>
-        <Tiles game={game} width={width} />
-      </F>)}
-    </ContainerDimensions>
+    <div className="Board">
+      <ContainerDimensions>
+        {({ width }) => (<F>
+          <Tiles game={game} width={width} />
+        </F>)}
+      </ContainerDimensions>
+    </div>
   )
 }
 
@@ -19,6 +21,7 @@ const Tiles = ({ game, width }) => {
   const cellSize = width / game.columns
   const cellPadding = 6
   const tiles = getTiles(game, cellSize)
+  const height = cellSize * game.rows
 
   useEffect(() => {
     const svg = d3.select(svgRef.current)
@@ -62,7 +65,7 @@ const Tiles = ({ game, width }) => {
 
   })
 
-  return (<svg className="Board" ref={svgRef} width={width}>
+  return (<svg className="BoardSvg" ref={svgRef} width={width} height={height}>
     <defs>
       <pattern id="eggBg" x="0" y="0" height="100" width="100">
         <image x="-100" y="0" xlinkHref={egg} height="200" width="200" />
