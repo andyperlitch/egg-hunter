@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/egg-hunter/static/css/main.8f345eda.chunk.css",
+    "main.js": "/egg-hunter/static/js/main.23b65ddb.chunk.js",
+    "main.js.map": "/egg-hunter/static/js/main.23b65ddb.chunk.js.map",
+    "runtime-main.js": "/egg-hunter/static/js/runtime-main.bc5b2112.js",
+    "runtime-main.js.map": "/egg-hunter/static/js/runtime-main.bc5b2112.js.map",
+    "static/css/2.5dbdccff.chunk.css": "/egg-hunter/static/css/2.5dbdccff.chunk.css",
+    "static/js/2.583d6989.chunk.js": "/egg-hunter/static/js/2.583d6989.chunk.js",
+    "static/js/2.583d6989.chunk.js.map": "/egg-hunter/static/js/2.583d6989.chunk.js.map",
+    "index.html": "/egg-hunter/index.html",
+    "precache-manifest.05c26a8bd074f163587821f3802f172e.js": "/egg-hunter/precache-manifest.05c26a8bd074f163587821f3802f172e.js",
+    "service-worker.js": "/egg-hunter/service-worker.js",
+    "static/css/2.5dbdccff.chunk.css.map": "/egg-hunter/static/css/2.5dbdccff.chunk.css.map",
+    "static/css/main.8f345eda.chunk.css.map": "/egg-hunter/static/css/main.8f345eda.chunk.css.map",
+    "static/js/2.583d6989.chunk.js.LICENSE": "/egg-hunter/static/js/2.583d6989.chunk.js.LICENSE",
+    "static/media/bunny.png": "/egg-hunter/static/media/bunny.be280460.png",
+    "static/media/egg.png": "/egg-hunter/static/media/egg.52ea1c7f.png",
+    "static/media/rock.png": "/egg-hunter/static/media/rock.71059532.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bc5b2112.js",
+    "static/css/2.5dbdccff.chunk.css",
+    "static/js/2.583d6989.chunk.js",
+    "static/css/main.8f345eda.chunk.css",
+    "static/js/main.23b65ddb.chunk.js"
+  ]
+}
