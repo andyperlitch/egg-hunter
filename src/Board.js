@@ -1,24 +1,32 @@
-import React, { useRef, useEffect, Fragment as F } from "react"
+import React, { useRef, useEffect, Fragment as F, useContext } from "react"
 import * as d3 from 'd3'
 import ContainerDimensions from 'react-container-dimensions'
 import './Board.css'
 import egg from './egg.png'
 import rock from './rock.png'
+import charImg from './bunny.png'
+import { GameContext } from "./GameContext"
 
-export const Board = ({ game }) => {
+export const Board = () => {
   return (
     <div className="Board">
       <ContainerDimensions>
         {({ width }) => (<F>
-          <Tiles game={game} width={width} />
+          <Tiles width={width} />
         </F>)}
       </ContainerDimensions>
     </div>
   )
 }
 
-const Tiles = ({ game, width }) => {
+const Tiles = ({  width }) => {
+  const {game, dispatch} = useContext(GameContext)
+
   const svgRef = useRef()
+  const charDatum = {
+    row: game.charPoint[0],
+    col: game.charPoint[1],
+  }
   const cellSize = width / game.columns
   const cellPadding = 6
   const tiles = getTiles(game, cellSize)
@@ -29,7 +37,7 @@ const Tiles = ({ game, width }) => {
 
     // TILES
     let tile = svg
-      .selectAll('g.tile')
+      .selectAll('g.tileGroup')
       .data(tiles, (tile) => `${tile.row},${tile.col}`)
 
     let newTile = tile.enter()
@@ -72,14 +80,32 @@ const Tiles = ({ game, width }) => {
 
     tile = newTile.merge(tile)
 
+    // CHARACTER
+    console.log(`charDatum`, charDatum)
+    let char = svg.selectAll('image.character')
+      .data([charDatum], () => 1)
     
+    char.enter()
+      .append('image')
+      .classed('character', true)
+      .attr('href', charImg)
+      .attr('width', cellSize - cellPadding * 2)
+      .attr('height', cellSize - cellPadding * 2)
+      .attr('x', (d) => d.col * cellSize + cellPadding)
+      .attr('y', (d) => d.row * cellSize + cellPadding)
+      .merge(char)
+    
+    char
+      .transition()
+      .attr('x', (d) => d.col * cellSize + cellPadding)
+      .attr('y', (d) => d.row * cellSize + cellPadding)
 
   })
 
   return (<svg className="BoardSvg" ref={svgRef} width={width} height={height}>
     <defs>
       <pattern id="eggBg" x="0" y="0" height="100" width="100">
-        <image x="-100" y="0" xlinkHref={egg} height="200" width="200" />
+        <image x="-50" y="-50" xlinkHref={egg} height="150" width="150" />
       </pattern>
     </defs>
   </svg>)

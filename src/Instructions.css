@@ -6,3 +6,70 @@
 .InstructionsTitle {
   text-align: center;
 }
+
+.AddInstruction {
+  background: rgb(145, 193, 145);
+  padding: 10px;
+}
+
+.AddInstructionTitle {
+  text-align: center;
+}
+
+.AddInstructionButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.AddInstructionArrowButton {
+  font-size: 40px;
+  width: 20%;
+  padding-top: 20%;
+  height: 0;
+  position: relative;
+  border: green;
+  background: rgb(190, 227, 190);
+  color: black;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.AddInstructionArrowButton:hover {
+  background: rgb(221, 228, 221);
+}
+
+.arrowBtnText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Instruction {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  /* padding: 1em; */
+  margin-top: 0.5em;
+  border: 1px solid steelblue;
+  background-color: rgb(186, 177, 208);
+}
+
+.InstructionDelete {
+  border: 1px solid rgb(196, 58, 58);
+  background: rgb(226, 140, 140);
+  color: rgb(141, 18, 18);
+  border-radius: 1em;
+  width: 5em;
+  height: 2em;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.InstructionDir {
+  font-size: 2em;
+}

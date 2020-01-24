@@ -12,10 +12,10 @@
 }
 
 .tileSquare {
-  fill: rgb(206, 219, 184);
+  fill: rgb(184, 196, 219);
 }
 
 .tileEgg {
-  stroke: rgb(240, 179, 179);
+  stroke: rgb(139, 87, 87);
   stroke-width: 2px;
 }
