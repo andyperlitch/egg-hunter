@@ -97,9 +97,10 @@ const Tiles = ({  width }) => {
     
     char
       .transition()
+      .duration(1000)
       .attr('x', (d) => d.col * cellSize + cellPadding)
       .attr('y', (d) => d.row * cellSize + cellPadding)
-
+      .on('end', () => dispatch({ type: 'moved' }))
   })
 
   return (<svg className="BoardSvg" ref={svgRef} width={width} height={height}>
@@ -111,10 +112,8 @@ const Tiles = ({  width }) => {
   </svg>)
 }
 
-const getTiles = ({ rows , columns, eggPoints, rockPoints, charPoint }, cellSize) => {
+const getTiles = ({ rows , columns, hasEgg, hasRock }, cellSize) => {
   const tiles = []
-  const hasEgg = getLookup(eggPoints)
-  const hasRock = getLookup(rockPoints)
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
       tiles.push({
@@ -132,16 +131,3 @@ const getTiles = ({ rows , columns, eggPoints, rockPoints, charPoint }, cellSize
   return tiles
 }
 
-const getLookup = (points) => {
-  const lookup = points.reduce((acc, [row, col]) => {
-    if (!acc[row]) {
-      acc[row] = { [col]: true }
-    } else {
-      acc[row][col] = true
-    }
-    return acc
-  }, {})
-  return (row, col) => {
-    return lookup[row] && lookup[row][col]
-  }
-}

@@ -59,6 +59,19 @@
   background-color: rgb(186, 177, 208);
 }
 
+.RunButton {
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 0.4em;
+  margin-top: 0.2em;
+  border: 1px solid purple;
+  background-color:purple;
+  color:white;
+  font-size: 1em;
+}
+
 .InstructionDelete {
   border: 1px solid rgb(196, 58, 58);
   background: rgb(226, 140, 140);
