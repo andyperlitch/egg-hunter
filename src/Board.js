@@ -3,6 +3,7 @@ import * as d3 from 'd3'
 import ContainerDimensions from 'react-container-dimensions'
 import './Board.css'
 import egg from './egg.png'
+import rock from './rock.png'
 
 export const Board = ({ game }) => {
   return (
@@ -57,11 +58,21 @@ const Tiles = ({ game, width }) => {
       .attr('ry', cellSize * 0.3)
       .attr('fill', 'url(#eggBg)')
       .attr('transform', `translate(${cellSize * 0.3}, -${cellSize * 0.18}) rotate(30) `)
-      // .attr('filter', 'url(#eggBg)')
-    
+
+    // ROCKS
+    newTile
+      .filter((t) => t.rock)
+      .append('image')
+      .classed('tileRock', true)
+      .attr('x', cellPadding * 3)
+      .attr('y', cellPadding * 3)
+      .attr('href', rock)
+      .attr('width', cellSize * 0.7)
+      .attr('height', cellSize * 0.7)
+
     tile = newTile.merge(tile)
 
-      
+    
 
   })
 
