@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/egg-hunter/precache-manifest.05c26a8bd074f163587821f3802f172e.js"
+  "/egg-hunter/precache-manifest.4b9354c8b1e2b3c82d2bcea8f2538a44.js"
 );
 
 self.addEventListener('message', (event) => {

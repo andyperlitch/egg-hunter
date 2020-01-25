@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "99451d5fe61eaa72e9e954dc83b33a0c",
+    "revision": "bf6b7118fad9d7a3937cc3e3b344c864",
     "url": "/egg-hunter/index.html"
   },
   {
-    "revision": "42587e3313ef43f1246e",
+    "revision": "c3ba3a61b219bac8eec6",
     "url": "/egg-hunter/static/css/2.5dbdccff.chunk.css"
   },
   {
-    "revision": "2a4076255414fe63226d",
+    "revision": "99ba5111774642d34faf",
     "url": "/egg-hunter/static/css/main.8f345eda.chunk.css"
   },
   {
-    "revision": "42587e3313ef43f1246e",
-    "url": "/egg-hunter/static/js/2.583d6989.chunk.js"
+    "revision": "c3ba3a61b219bac8eec6",
+    "url": "/egg-hunter/static/js/2.94842988.chunk.js"
   },
   {
     "revision": "f032203ca460334c00de541c30a6078a",
-    "url": "/egg-hunter/static/js/2.583d6989.chunk.js.LICENSE"
+    "url": "/egg-hunter/static/js/2.94842988.chunk.js.LICENSE"
   },
   {
-    "revision": "2a4076255414fe63226d",
-    "url": "/egg-hunter/static/js/main.23b65ddb.chunk.js"
+    "revision": "99ba5111774642d34faf",
+    "url": "/egg-hunter/static/js/main.e792feeb.chunk.js"
   },
   {
     "revision": "2f15923a33a5d6fb5528",
