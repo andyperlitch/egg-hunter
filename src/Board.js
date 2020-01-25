@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import ContainerDimensions from 'react-container-dimensions'
 import './Board.css'
 import eggImg from './egg.png'
-import rock from './rock.png'
+import rockImg from './rock.png'
 import charImg from './bunny.png'
 import { GameContext } from "./GameContext"
 
@@ -31,6 +31,7 @@ const Tiles = ({  width }) => {
   const cellPadding = 6
   const tiles = getTiles(game, cellSize)
   const eggs = getEggs(game, cellSize)
+  const rocks = getRocks(game, cellSize)
   console.log(`eggs.length`, eggs.length)
   const height = cellSize * game.rows
 
@@ -56,17 +57,6 @@ const Tiles = ({  width }) => {
       .attr('rx', cellPadding)
       .attr('width', cellSize - cellPadding)
       .attr('height', cellSize - cellPadding)
-
-    // ROCKS
-    newTile
-      .filter((t) => t.rock)
-      .append('image')
-      .classed('tileRock', true)
-      .attr('x', cellPadding * 3)
-      .attr('y', cellPadding * 3)
-      .attr('xlink:href', rock)
-      .attr('width', cellSize * 0.7)
-      .attr('height', cellSize * 0.7)
 
     tile = newTile.merge(tile)
 
@@ -107,7 +97,22 @@ const Tiles = ({  width }) => {
       .attr('x', (d) => d.col * cellSize + cellPadding * 4)
       .attr('y', (d) => d.row * cellSize + cellPadding * 4)
       .merge(egg)
+
+    // ROCKS
+    let rock = svg.selectAll('image.rock')
+      .data(rocks, (d) => `${d.row}.${d.col}`)
     
+    rock.exit().remove()
+
+    rock = rock.enter()
+      .append('image')
+      .classed('rock', true)
+      .attr('xlink:href', rockImg)
+      .attr('width', cellSize - cellPadding * 8)
+      .attr('height', cellSize - cellPadding * 8)
+      .attr('x', (d) => d.col * cellSize + cellPadding * 4)
+      .attr('y', (d) => d.row * cellSize + cellPadding * 4)
+      .merge(rock)
   })
 
   return (<svg className="BoardSvg" ref={svgRef} width={width} height={height}></svg>)
@@ -133,6 +138,16 @@ const getTiles = ({ rows , columns, rocks }, cellSize) => {
 const getEggs = ({ eggs, eggsFound }, cellSize) => {
   return eggs.values
     .filter((egg) => !eggsFound.has(...egg))
+    .map(([row, col]) => ({
+      row,
+      col,
+      x: col * cellSize,
+      y: row * cellSize,
+    }))
+}
+
+const getRocks = ({ rocks }, cellSize) => {
+  return rocks.values
     .map(([row, col]) => ({
       row,
       col,
